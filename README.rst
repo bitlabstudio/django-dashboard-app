@@ -1,10 +1,29 @@
 Django Dashboard App
-============
+====================
 
 A reusable Django app for displaying a dashboard with a fluid grid of widgets.
 
+Let's say you control 20 different web apps and you want to have a dashboard
+that shows the user count of each app as a graph. The graphs should be updated
+every minute so that you can see immediately when a sudden spike of new user
+signups happens.
+
+There are two ways:
+
+1. Your apps provide an API endpoint for your dashboard so that the dashboard
+   can poll that endpoint every minute and get the current user count.
+2. Your dashboard provides an endpoint that can be called by your apps whenever
+   a new user signs up.
+
+Both methods should be possible with this app.
+
+The dashboard itself will consist of many plugins. Each plugin is a reusable
+Django app of it's own. This allows you to write any kind of plugin for any
+kind of service.
+
+
 Installation
-------------
+============
 
 To get the latest stable release from PyPi
 
@@ -37,13 +56,6 @@ Add the ``dashboard_app`` URLs to your ``urls.py``
         ...
         url(r'^dashboard/', include('dashboard_app.urls')),
     )
-
-Before your tags/filters are available in your templates, load them by using
-
-.. code-block:: html
-
-	{% load dashboard_app_tags %}
-
 
 Don't forget to migrate your database
 
