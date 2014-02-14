@@ -21,19 +21,28 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    {% for widget in widgets %}
+                    {% for widget_name, widget in widgets.items %}
                         {% cycle "col1" "col2" "col3" as column silent %}
                         {% if column == "col1" %}
                             <div class="row">
                         {% endif %}
 
                                 <div class="col-md-4">
-                                    {% include "dashboard_app/partials/widget.html" %}
+                                    {% include "dashboard_app/partials/widget.html" with widget=widget %}
                                 </div>
 
                         {% if column == "col3" or forloop.last %}
                             </div>
                         {% endif %}
+                    {% empty %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">No widgets found</h3>
+                            </div>
+                            <div class="panel-body">
+                                Whoops! Looks like you have not registered any widget, yet.
+                            </div>
+                        </div>
                     {% endfor %}
                 </div>
             </div>

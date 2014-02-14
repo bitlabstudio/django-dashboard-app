@@ -2,8 +2,8 @@
 from django.views.generic import TemplateView
 from django.utils.decorators import method_decorator
 
-from dashboard_app.decorators import permission_required
-# from dashboard_app.widget_pool import dashboard_widget_pool
+from .decorators import permission_required
+from .widget_pool import dashboard_widget_pool
 
 
 class PermissionRequiredViewMixin(object):
@@ -33,7 +33,7 @@ class DashboardView(PermissionRequiredViewMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(DashboardView, self).get_context_data(**kwargs)
-        widgets = [1, 2, 3, 4, 5, 6]  # dashboard_widget_pool.get_widgets()
+        widgets = dashboard_widget_pool.get_widgets()
         ctx.update({
             'widgets': widgets,
         })

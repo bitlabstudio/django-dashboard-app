@@ -32,7 +32,7 @@ TEMPLATE_DIRS = (
 COVERAGE_REPORT_HTML_OUTPUT_DIR = os.path.join(
     os.path.join(APP_ROOT, 'tests/coverage'))
 COVERAGE_MODULE_EXCLUDES = [
-    'tests$', 'settings$', 'urls$', 'locale$',
+    'tests$', 'settings$', 'urls$', 'locale$', 'test_widget_app$',
     'migrations', 'fixtures', 'admin$', 'django_extensions',
 ]
 
@@ -41,6 +41,7 @@ EXTERNAL_APPS = [
     'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
@@ -53,7 +54,7 @@ EXTERNAL_APPS = [
 
 INTERNAL_APPS = [
     'dashboard_app',
-    'dashboard_app.tests.test_app',
+    'dashboard_app.tests.test_widget_app',
 ]
 
 INSTALLED_APPS = EXTERNAL_APPS + INTERNAL_APPS

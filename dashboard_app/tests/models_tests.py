@@ -1,10 +1,24 @@
-"""Tests for the models of the dashboard_app app."""
+"""Tests for the models of the ``django-metrics-dashboard`` app."""
 from django.test import TestCase
 
-# from .factories import YourModelFactory
+from .. import models
+from .factories import DashboardWidgetSettingsFactory
 
 
-class DummyTestCase(TestCase):
-    """Sample test case to show that `python setup.py test` works."""
-    def test_something(self):
-        self.assertTrue(True)
+class DashboardWidgetLastUpdateTestCase(TestCase):
+    """Tests for the ``DashboardWidgetLastUpdate`` model class."""
+    longMessage = True
+
+    def test_model(self):
+        instance = models.DashboardWidgetLastUpdate()
+        instance.save()
+        self.assertTrue(instance.pk)
+
+
+class DashboardWidgetSettingsTestCase(TestCase):
+    """Tests for the ``DashboardWidgetSettings`` model class."""
+    longMessage = True
+
+    def test_model(self):
+        instance = DashboardWidgetSettingsFactory()
+        self.assertTrue(instance.pk)

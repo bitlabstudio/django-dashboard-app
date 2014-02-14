@@ -1,3 +1,4 @@
+django-load
 django-nose
 coverage
 django-coverage
