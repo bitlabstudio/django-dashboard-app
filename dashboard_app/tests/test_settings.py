@@ -49,7 +49,6 @@ EXTERNAL_APPS = [
     'django.contrib.sites',
     'django_jasmine',
     'django_nose',
-    'south',
 ]
 
 INTERNAL_APPS = [
