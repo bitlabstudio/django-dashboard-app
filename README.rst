@@ -21,6 +21,13 @@ The dashboard itself will consist of many plugins. Each plugin is a reusable
 Django app of it's own. This allows you to write any kind of plugin for any
 kind of service.
 
+Note: A while ago I already created
+https://github.com/bitmazk/django-metrics-dashboard to solve this exact problem
+but I wanted to have socket.io support, which was a bad idea. It didn't really
+work out nicely and kept crashing so that I abandoned the project in the end.
+This is my second try, this time I'm using old-school polling once per minute
+via AJAX.
+
 
 Installation
 ============
