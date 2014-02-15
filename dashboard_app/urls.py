@@ -10,6 +10,6 @@ urlpatterns = patterns(
         views.DashboardView.as_view(),
         name='dashboard_app_dashboard'),
     url(r'^get-outdated/$',
-        views.DashboardNeedsUpdateView.as_view(),
-        name='dashboard_app_get_outdated'),
+        views.DashboardLastUpdateView.as_view(),
+        name='dashboard_app_get_last_updates'),
 )

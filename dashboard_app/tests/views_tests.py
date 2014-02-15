@@ -12,15 +12,15 @@ from .. import views
 from ..widget_pool import dashboard_widget_pool
 
 
-class DashboardNeedsUpdateViewTestCase(ViewRequestFactoryTestMixin,
-                                       mixins.WidgetTestCaseMixin,
-                                       TestCase):
-    """Tests for the ``DashboardNeedsUpdateView`` view class."""
+class DashboardLastUpdateViewTestCase(ViewRequestFactoryTestMixin,
+                                      mixins.WidgetTestCaseMixin,
+                                      TestCase):
+    """Tests for the ``DashboardLastUpdateView`` view class."""
     longMessage = True
-    view_class = views.DashboardNeedsUpdateView
+    view_class = views.DashboardLastUpdateView
 
     def setUp(self):
-        super(DashboardNeedsUpdateViewTestCase, self).setUp()
+        super(DashboardLastUpdateViewTestCase, self).setUp()
         self.superuser = UserFactory(is_superuser=True)
         self.normal_user = UserFactory()
 
