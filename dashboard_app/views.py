@@ -1,27 +1,24 @@
 """Views for the dashboard_app app."""
-from django.views.generic import TemplateView
-from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView, View
 
-from .decorators import permission_required
+from . import view_mixins
 from .widget_pool import dashboard_widget_pool
 
 
-class PermissionRequiredViewMixin(object):
+class DashboardNeedsUpdateView(view_mixins.JSONResponseMixin, View):
     """
-    Mixin to protect a view and require ``can_view_dashboard`` permission.
-
-    Permission will only be required if the ``DASHBOARD_REQUIRE_LOGIN``
-    setting is ``True``.
+    Returns a JSON list of widget names that need re-rendering.
 
     """
-    @method_decorator(
-        permission_required('dashboard_app.can_view_dashboard'))
-    def dispatch(self, request, *args, **kwargs):
-        return super(PermissionRequiredViewMixin, self).dispatch(
-            request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        widgets = dashboard_widget_pool.get_widgets_that_need_update()
+        result = []
+        for widget in widgets:
+            result.append(widget.get_name())
+        return self.render_to_response(result)
 
 
-class DashboardView(PermissionRequiredViewMixin, TemplateView):
+class DashboardView(view_mixins.PermissionRequiredViewMixin, TemplateView):
     """
     Main view of the app. Displays the metrics dashboard.
 

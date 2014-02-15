@@ -41,6 +41,14 @@ class DashboardWidgetPool(object):
         self.discover_widgets()
         return self.widgets
 
+    def get_widgets_that_need_update(self):
+        """Returns all widgets that need an update."""
+        result = []
+        for widget_name, widget in self.get_widgets().items():
+            if widget.should_update():
+                result.append(widget)
+        return result
+
     def register_widget(self, widget_cls):
         """
         Registers the given widget.

@@ -1,10 +1,37 @@
 """Tests for the views of the dashboard_app."""
+import time
+
 from django.test import TestCase
 
 from django_libs.tests.mixins import ViewRequestFactoryTestMixin
 from django_libs.tests.factories import UserFactory
 
-from ..import views
+
+from . import mixins
+from .. import views
+from ..widget_pool import dashboard_widget_pool
+
+
+class DashboardNeedsUpdateViewTestCase(ViewRequestFactoryTestMixin,
+                                       mixins.WidgetTestCaseMixin,
+                                       TestCase):
+    """Tests for the ``DashboardNeedsUpdateView`` view class."""
+    longMessage = True
+    view_class = views.DashboardNeedsUpdateView
+
+    def setUp(self):
+        super(DashboardNeedsUpdateViewTestCase, self).setUp()
+        self.superuser = UserFactory(is_superuser=True)
+        self.normal_user = UserFactory()
+
+        # This ensures that we have one last update in the database
+        dashboard_widget_pool.get_widgets_that_need_update()
+        time.sleep(1)
+
+    def test_view(self):
+        resp = self.get(ajax=True)
+        self.assertTrue('DummyWidget' in resp.content, msg=(
+            'Should return a list all widgets that need an update'))
 
 
 class DashboardViewTestCase(ViewRequestFactoryTestMixin, TestCase):
