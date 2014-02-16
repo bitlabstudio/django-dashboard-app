@@ -3,7 +3,7 @@ DummyWidget implementation used by the tests.
 
 """
 from django.utils.translation import ugettext_lazy as _
-from django.utils.timezone import datetime, now
+from django.utils.timezone import now
 
 from dashboard_app.widget_base import DashboardWidgetBase
 from dashboard_app.widget_pool import dashboard_widget_pool
@@ -21,12 +21,16 @@ class DummyWidget(DashboardWidgetBase):
     def get_context_data(self):
         ctx = super(DummyWidget, self).get_context_data()
         value_setting = self.get_setting('VALUE')
-        date = 'Widget has not been saved, yet...'
-        if value_setting is not None:
+
+        error = None
+        value = None
+        if value_setting is None:
+            error = 'Widget has not been saved, yet...'
+        else:
             value = value_setting.value
-            date = datetime.strptime(value, self.time_format)
         ctx.update({
-            'value': date,
+            'value': value,
+            'error': error,
         })
         return ctx
 
