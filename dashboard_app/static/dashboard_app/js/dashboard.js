@@ -5,7 +5,7 @@
 var interval;
 
 function init() {
-    interval = setInterval(find_outdated, 60000);
+    interval = setInterval(find_outdated, 60);
     find_outdated();
 }
 
@@ -27,6 +27,7 @@ function find_outdated() {
 
 function reload_widget(widget_name) {
     var get_data = {'name': widget_name};
+    $('#' + widget_name).find('.panel-body').html('<p>Loading...</p>');
     $.get(render_widget_url, get_data, function(data) {
         $('#' + widget_name).replaceWith(data);
     });
