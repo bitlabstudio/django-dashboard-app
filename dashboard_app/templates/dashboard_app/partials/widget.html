@@ -4,7 +4,7 @@
         <h3 class="panel-title">{% block widget_title %}{{ widget.get_title }}{% endblock %}</h3>
     </div>
     <div class="panel-body">
-        <p>Loading widget...</p>
+        {% block widget_body %}<p>Loading widget...</p>{% endblock %}
     </div>
     <div class="panel-footer">
         {% block widget_footer %}

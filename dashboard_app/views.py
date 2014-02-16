@@ -34,3 +34,35 @@ class DashboardView(view_mixins.PermissionRequiredViewMixin, TemplateView):
             'widgets': widgets,
         })
         return ctx
+
+
+class DashboardRenderWidgetView(view_mixins.PermissionRequiredViewMixin,
+                                TemplateView):
+    """AJAX view that renders any given widget by name."""
+    def dispatch(self, request, *args, **kwargs):
+        self.widget = dashboard_widget_pool.get_widget(
+            request.GET.get('name'))
+        return super(DashboardRenderWidgetView, self).dispatch(
+            request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        """
+        Adds ``is_rendered`` to the context and the widget's context data.
+
+        ``is_rendered`` signals that the AJAX view has been called and that
+        we are displaying the full widget now. When ``is_rendered`` is not
+        found in the widget template it means that we are seeing the first
+        page load and all widgets still have to get their real data from
+        this AJAX view.
+
+        """
+        ctx = super(DashboardRenderWidgetView, self).get_context_data(**kwargs)
+        ctx.update({
+            'is_rendered': True,
+            'widget': self.widget,
+        })
+        ctx.update(self.widget.get_context_data())
+        return ctx
+
+    def get_template_names(self):
+        return [self.widget.template_name, ]

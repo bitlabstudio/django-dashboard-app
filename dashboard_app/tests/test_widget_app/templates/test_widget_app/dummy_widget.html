@@ -1,7 +1,11 @@
 {% extends "dashboard_app/partials/widget.html" %}
 
 {% block widget_body %}
-<h2>Last update</h2>
-<p>{{ value|date:"d. M. y" }}</p>
-<p>{{ value|date:"H:i:s" }}</p>
+{% if is_rendered %}
+    <h2>Last update</h2>
+    <p>{{ value|date:"d. M. y" }}</p>
+    <p>{{ value|date:"H:i:s" }}</p>
+{% else %}
+    {{ block.super }}
+{% endif %}
 {% endblock %}

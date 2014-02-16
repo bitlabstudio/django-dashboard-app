@@ -10,7 +10,7 @@ function init() {
 }
 
 function find_outdated() {
-    $.get(get_outdated_url, function(data) {
+    $.get(get_last_updates_url, function(data) {
         // We expect a dict of widget_names and last update times
         for (var widget_name in data) {
             // We have saved the latest last update time in a hidden field
@@ -26,7 +26,10 @@ function find_outdated() {
 }
 
 function reload_widget(widget_name) {
-    // TODO
+    var get_data = {'name': widget_name};
+    $.get(render_widget_url, get_data, function(data) {
+        $('#' + widget_name).replaceWith(data);
+    });
 }
 
 $(document).ready(init);

@@ -96,3 +96,10 @@ class DashboardWidgetPoolTestCase(WidgetTestCaseMixin, TestCase):
         """get_widgets should discover widgets and return them."""
         widgets = dashboard_widget_pool.get_widgets()
         self.assertEqual(widgets, dashboard_widget_pool.widgets)
+
+    def test_get_widget(self):
+        """get_widget should return the given widget."""
+        dashboard_widget_pool.discover_widgets()
+        widget = dashboard_widget_pool.get_widget('DummyWidget')
+        self.assertEqual(widget.get_name(), 'DummyWidget', msg=(
+            'Should return the correct widget'))

@@ -34,7 +34,9 @@ class DashboardLastUpdateViewTestCase(ViewRequestFactoryTestMixin,
             'Should return a list all widgets that need an update'))
 
 
-class DashboardViewTestCase(ViewRequestFactoryTestMixin, TestCase):
+class DashboardViewTestCase(ViewRequestFactoryTestMixin,
+                            mixins.WidgetTestCaseMixin,
+                            TestCase):
     """Tests for the ``DashboardView`` view class."""
     longMessage = True
     view_class = views.DashboardView
@@ -60,5 +62,41 @@ class DashboardViewTestCase(ViewRequestFactoryTestMixin, TestCase):
 
     def test_view(self):
         resp = self.get(user=self.superuser)
+        self.assertEqual(resp.status_code, 200, msg=(
+            'User with correct permissions should be able to see the view'))
+
+
+class DashboardRenderWidgetViewTestCase(ViewRequestFactoryTestMixin,
+                                        mixins.WidgetTestCaseMixin,
+                                        TestCase,):
+    """Tests for the DashboardRenderWidgetView."""
+    longMessage = True
+    view_class = views.DashboardRenderWidgetView
+
+    def setUp(self):
+        super(DashboardRenderWidgetViewTestCase, self).setUp()
+        dashboard_widget_pool.discover_widgets()
+        self.superuser = UserFactory(is_superuser=True)
+        self.normal_user = UserFactory()
+        self.data = {'name': 'DummyWidget', }
+
+    def test_security(self):
+        resp = self.get(user=self.normal_user, data=self.data)
+        self.assertEqual(resp.status_code, 302, msg=(
+            'Should redirect to login when user is anonymous'))
+
+        resp = self.get(user=self.normal_user, data=self.data)
+        self.assertEqual(resp.status_code, 302, msg=(
+            "Should redirect to login if the user doesn't have the correct"
+            " permissions"))
+
+        with self.settings(DASHBOARD_REQUIRE_LOGIN=False):
+            resp = self.get(data=self.data)
+            self.assertEqual(resp.status_code, 200, msg=(
+                'When REQUIRE_LOGIN is False, anyone should be able to see the'
+                ' view'))
+
+    def test_view(self):
+        resp = self.get(user=self.superuser, data=self.data)
         self.assertEqual(resp.status_code, 200, msg=(
             'User with correct permissions should be able to see the view'))

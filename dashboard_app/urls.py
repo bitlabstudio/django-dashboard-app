@@ -12,4 +12,7 @@ urlpatterns = patterns(
     url(r'^get-outdated/$',
         views.DashboardLastUpdateView.as_view(),
         name='dashboard_app_get_last_updates'),
+    url(r'^widget/$',
+        views.DashboardRenderWidgetView.as_view(),
+        name='dashboard_app_render_widget'),
 )

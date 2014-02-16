@@ -18,14 +18,13 @@ class DummyWidget(DashboardWidgetBase):
         }
     }
 
-    time_format = '%d.%m.%Y %H:%M:%S'
-    sizex = 1
-    sizey = 1
-
     def get_context_data(self):
         ctx = super(DummyWidget, self).get_context_data()
-        value = self.get_setting('VALUE').value
-        date = datetime.strptime(value, self.time_format)
+        value_setting = self.get_setting('VALUE')
+        date = 'Widget has not been saved, yet...'
+        if value_setting is not None:
+            value = value_setting.value
+            date = datetime.strptime(value, self.time_format)
         ctx.update({
             'value': date,
         })
@@ -39,8 +38,6 @@ class DummyWidget(DashboardWidgetBase):
 class DummyWidget2(DashboardWidgetBase):
     """This widget is used by the tests."""
     template_name = 'test_widget_app/dummy_widget2.html'
-    sizex = 2
-    sizey = 1
 
     def get_context_data(self):
         ctx = super(DummyWidget2, self).get_context_data()

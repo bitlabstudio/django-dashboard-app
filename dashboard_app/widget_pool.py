@@ -41,6 +41,10 @@ class DashboardWidgetPool(object):
         self.discover_widgets()
         return self.widgets
 
+    def get_widget(self, widget_name):
+        """Returns the widget that matches the given widget name."""
+        return self.widgets[widget_name]
+
     def get_widgets_that_need_update(self):
         """Returns all widgets that need an update."""
         result = []

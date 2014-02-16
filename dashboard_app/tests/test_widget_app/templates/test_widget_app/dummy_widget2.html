@@ -1,6 +1,10 @@
 {% extends "dashboard_app/partials/widget.html" %}
 
 {% block widget_body %}
-<h2>{{ value }}</h2>
-<p>This widget does nothing, really.</p>
+{% if is_rendered %}
+    <h2>{{ value }}</h2>
+    <p>This widget does nothing, really.</p>
+{% else %}
+    {{ block.super }}
+{% endif %}
 {% endblock %}
