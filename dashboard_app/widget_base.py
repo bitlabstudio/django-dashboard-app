@@ -1,5 +1,4 @@
 """Base DashboardWidget of the dashboard_app."""
-from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 
 from . import models
@@ -7,28 +6,15 @@ from . import models
 
 class DashboardWidgetBase(object):
     """All DashboardWidgets must inherit this base class."""
-    base_settings = {
-        'IS_ENABLED': {
-            'verbose_name': _('Is enabled'),
-        },
-        'LAST_UPDATE': {
-            'verbose_name': _('Last update'),
-        }
-    }
-
-    settings = {}
-
-    update_time_format = '%d.%m.%Y %H:%M:%S'
     update_interval = 1
+    template_name = 'dashboard_app/partials/widget.html'
 
     def get_context_data(self):
         """
         Should return a dictionary of template context variables.
 
         """
-        return {
-            'widget_name': self.get_name(),
-        }
+        return {}
 
     def get_last_update(self):
         """Gets or creates the last update object for this widget."""
@@ -79,9 +65,9 @@ class DashboardWidgetBase(object):
         return setting
 
     def set_last_update(self):
-        """Sets the ``LAST_UPDATE`` setting to ``now()``."""
+        """Sets the last update time to ``now()``."""
         last_update = self.get_last_update()
-        last_update.save()
+        last_update.save()  # The model has auto_now_update=True
 
     def should_update(self):
         """

@@ -28,7 +28,7 @@
                         {% endif %}
 
                                 <div class="col-md-4">
-                                    {% include "dashboard_app/partials/widget.html" with widget=widget %}
+                                    {% include widget.template_name with widget=widget %}
                                 </div>
 
                         {% if column == "col3" or forloop.last %}

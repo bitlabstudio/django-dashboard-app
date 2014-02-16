@@ -1,17 +1,6 @@
-<style>
-    .dummyWidget2, .dummyWidget2 table {
-        height: 100%;
-        width: 100%;
-    }
-</style>
-<div class="dummyWidget2">
-    <table>
-        <tr>
-            <td style="vertical-align:middle;text-align:center;">
-                <h2>{{ value }}</h2>
-                <p>This widget does nothing, really.</p>
-                <p>It's just... big.</p>
-            </td>
-        </tr>
-    </table>
-</div>
+{% extends "dashboard_app/partials/widget.html" %}
+
+{% block widget_body %}
+<h2>{{ value }}</h2>
+<p>This widget does nothing, really.</p>
+{% endblock %}
