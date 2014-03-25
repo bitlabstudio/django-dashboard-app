@@ -1,11 +1,20 @@
 """Admin classes for the dashboard_app app."""
-# from django.contrib import admin
+from django.contrib import admin
 
-# from . import models
+from . import models
 
 
-# class YourModelAdmin(admin.ModelAdmin):
-#    list_display = ['some', 'fields', ]
-#    search_fields = ['some', 'fieds', ]
+class DashboardWidgetLastUpdateAdmin(admin.ModelAdmin):
+    list_display = ['widget_name', 'last_update', ]
+    search_fields = ['widget_name', ]
 
-# admin.site.register(models.YourModel, YourModelAdmin)
+
+class DashboardWidgetSettingsAdmin(admin.ModelAdmin):
+    list_display = ['widget_name', 'setting_name', 'value']
+    search_fields = ['widget_name', 'setting_name', 'value', ]
+
+
+admin.site.register(
+    models.DashboardWidgetLastUpdate, DashboardWidgetLastUpdateAdmin)
+admin.site.register(
+    models.DashboardWidgetSettings, DashboardWidgetSettingsAdmin)

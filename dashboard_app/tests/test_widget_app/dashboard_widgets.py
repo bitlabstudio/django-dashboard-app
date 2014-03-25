@@ -58,3 +58,5 @@ dashboard_widget_pool.register_widget(
     DummyWidget2, widget_name='widget3', position=1)
 dashboard_widget_pool.register_widget(DummyWidget2, position=2)
 dashboard_widget_pool.register_widget(DummyWidget, position=3)
+dashboard_widget_pool.register_widget(
+    DummyWidget, widget_name='widget4', position=4)
