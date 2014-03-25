@@ -29,7 +29,7 @@ class DashboardView(view_mixins.PermissionRequiredViewMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(DashboardView, self).get_context_data(**kwargs)
-        widgets = dashboard_widget_pool.get_widgets()
+        widgets = dashboard_widget_pool.get_widgets_sorted()
         ctx.update({
             'widgets': widgets,
         })

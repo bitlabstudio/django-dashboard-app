@@ -21,7 +21,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    {% for widget_name, widget in widgets.items %}
+                    {% for widget_name, widget, position in widgets %}
                         {% cycle "col1" "col2" "col3" as column silent %}
                         {% if column == "col1" %}
                             <div class="row">

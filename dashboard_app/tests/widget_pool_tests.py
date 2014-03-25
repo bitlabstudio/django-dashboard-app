@@ -97,6 +97,20 @@ class DashboardWidgetPoolTestCase(WidgetTestCaseMixin, TestCase):
         widgets = dashboard_widget_pool.get_widgets()
         self.assertEqual(widgets, dashboard_widget_pool.widgets)
 
+    def test_get_widgets_sorted(self):
+        """get_widgets_sorted should return the widgets sorted by position."""
+        self._unregister_widgets()
+        dashboard_widget_pool.register_widget(DummyWidget, position=3)
+        dashboard_widget_pool.register_widget(
+            DummyWidget, widget_name='w2', position=2)
+        dashboard_widget_pool.register_widget(
+            DummyWidget, widget_name='w3', position=1)
+        result = dashboard_widget_pool.get_widgets_sorted()
+        self.assertEqual(result[0][2], 1, msg=(
+            'Should return the widget with position 1 first'))
+        self.assertEqual(result[2][2], 3, msg=(
+            'Should return the widget with position 3 last'))
+
     def test_get_widget(self):
         """get_widget should return the given widget."""
         dashboard_widget_pool.discover_widgets()

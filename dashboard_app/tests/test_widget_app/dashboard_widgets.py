@@ -54,6 +54,7 @@ class DummyWidget2(DashboardWidgetBase):
         pass
 
 
-dashboard_widget_pool.register_widget(DummyWidget)
-dashboard_widget_pool.register_widget(DummyWidget2)
-dashboard_widget_pool.register_widget(DummyWidget2, widget_name='widget3')
+dashboard_widget_pool.register_widget(
+    DummyWidget2, widget_name='widget3', position=1)
+dashboard_widget_pool.register_widget(DummyWidget2, position=2)
+dashboard_widget_pool.register_widget(DummyWidget, position=3)

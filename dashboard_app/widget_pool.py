@@ -41,6 +41,14 @@ class DashboardWidgetPool(object):
         self.discover_widgets()
         return self.widgets
 
+    def get_widgets_sorted(self):
+        """Returns the widgets sorted by position."""
+        result = []
+        for widget_name, widget in self.get_widgets().items():
+            result.append((widget_name, widget, widget.position))
+        result.sort(key=lambda x: x[2])
+        return result
+
     def get_widget(self, widget_name):
         """Returns the widget that matches the given widget name."""
         return self.widgets[widget_name]
