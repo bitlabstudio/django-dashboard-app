@@ -9,7 +9,7 @@ class DashboardWidgetBase(object):
     update_interval = 1
     template_name = 'dashboard_app/partials/widget.html'
 
-    def __init__(self, widget_name=None):
+    def __init__(self, **kwargs):
         """
         Allows to initialise the widget with special options.
 
@@ -18,7 +18,8 @@ class DashboardWidgetBase(object):
           register the same widget class several times with different names.
 
         """
-        self.widget_name = widget_name
+        for key, value in kwargs.iteritems():
+            setattr(self, key, value)
 
     def get_context_data(self):
         """
@@ -43,7 +44,7 @@ class DashboardWidgetBase(object):
         class several times with different names.
 
         """
-        if self.widget_name:
+        if hasattr(self, 'widget_name'):
             return self.widget_name
         return self.__class__.__name__
 
