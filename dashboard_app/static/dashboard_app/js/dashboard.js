@@ -5,7 +5,7 @@
 var interval;
 
 function init() {
-    interval = setInterval(find_outdated, 60);
+    interval = setInterval(find_outdated, 60000);
     find_outdated();
 }
 

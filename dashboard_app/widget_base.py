@@ -9,6 +9,17 @@ class DashboardWidgetBase(object):
     update_interval = 1
     template_name = 'dashboard_app/partials/widget.html'
 
+    def __init__(self, widget_name=None):
+        """
+        Allows to initialise the widget with special options.
+
+        :param widget_name: By setting the name, you override the get_name
+          method and always return that name instead. This allows you to
+          register the same widget class several times with different names.
+
+        """
+        self.widget_name = widget_name
+
     def get_context_data(self):
         """
         Should return a dictionary of template context variables.
@@ -24,7 +35,16 @@ class DashboardWidgetBase(object):
         return instance
 
     def get_name(self):
-        """Returns the class name of this widget."""
+        """
+        Returns the class name of this widget.
+
+        Be careful when overriding this. If ``self.widget_name`` is set, you
+        should always return that in order to allow to register this widget
+        class several times with different names.
+
+        """
+        if self.widget_name:
+            return self.widget_name
         return self.__class__.__name__
 
     def get_setting(self, setting_name, default=None):

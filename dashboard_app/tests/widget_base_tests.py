@@ -27,6 +27,10 @@ class DashboardWidgetBaseTestCase(TestCase):
         result = widget.get_name()
         self.assertEqual(result, 'DummyWidget')
 
+        widget = DummyWidget(widget_name='Foobar')
+        result = widget.get_name()
+        self.assertEqual(result, 'Foobar')
+
     def test_get_setting(self):
         """get_setting should get the setting from the database."""
         widget = DummyWidget()

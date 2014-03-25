@@ -53,7 +53,7 @@ class DashboardWidgetPool(object):
                 result.append(widget)
         return result
 
-    def register_widget(self, widget_cls):
+    def register_widget(self, widget_cls, **widget_kwargs):
         """
         Registers the given widget.
 
@@ -68,7 +68,7 @@ class DashboardWidgetPool(object):
                 'DashboardWidgets must be subclasses of DashboardWidgetBase,'
                 ' {0} is not.'.format(widget_cls))
 
-        widget = widget_cls()
+        widget = widget_cls(**widget_kwargs)
         widget_name = widget.get_name()
         if widget_name in self.widgets:
             raise WidgetAlreadyRegistered(

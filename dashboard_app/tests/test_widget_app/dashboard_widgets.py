@@ -56,3 +56,4 @@ class DummyWidget2(DashboardWidgetBase):
 
 dashboard_widget_pool.register_widget(DummyWidget)
 dashboard_widget_pool.register_widget(DummyWidget2)
+dashboard_widget_pool.register_widget(DummyWidget2, widget_name='widget3')
