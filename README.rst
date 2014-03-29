@@ -15,7 +15,8 @@ There are two ways:
 2. Your dashboard provides an endpoint that can be called by your apps whenever
    a new user signs up.
 
-Both methods should be possible with this app.
+Ultimately, both methods should be possible with this app. Currently only the
+first way is implemented.
 
 The dashboard itself will consist of many plugins. Each plugin is a reusable
 Django app of it's own. This allows you to write any kind of plugin for any
