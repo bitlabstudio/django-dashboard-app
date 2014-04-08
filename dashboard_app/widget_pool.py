@@ -54,7 +54,12 @@ class DashboardWidgetPool(object):
         return self.widgets[widget_name]
 
     def get_widgets_that_need_update(self):
-        """Returns all widgets that need an update."""
+        """
+        Returns all widgets that need an update.
+
+        This should be scheduled every minute via crontab.
+
+        """
         result = []
         for widget_name, widget in self.get_widgets().items():
             if widget.should_update():
