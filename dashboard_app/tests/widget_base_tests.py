@@ -16,7 +16,7 @@ class DashboardWidgetBaseTestCase(TestCase):
         """get_context_data should return an empty dict by default."""
         base = DashboardWidgetBase()
         result = base.get_context_data()
-        self.assertEqual(result, {})
+        self.assertEqual(result, {'is_rendered': True, })
 
     def test_get_name(self):
         """

@@ -27,7 +27,7 @@ class DashboardWidgetBase(object):
         needed to render this widget.
 
         """
-        return {}
+        return {'is_rendered': True, }
 
     def get_last_update(self):
         """Gets or creates the last update object for this widget."""

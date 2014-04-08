@@ -2,7 +2,6 @@
 DummyWidget implementation used by the tests.
 
 """
-from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 
 from dashboard_app.widget_base import DashboardWidgetBase
@@ -12,11 +11,6 @@ from dashboard_app.widget_pool import dashboard_widget_pool
 class DummyWidget(DashboardWidgetBase):
     """This widget is used by the tests."""
     template_name = 'test_widget_app/dummy_widget.html'
-    settings = {
-        'VALUE': {
-            'verbose_name': _('Value'),
-        }
-    }
 
     def get_context_data(self):
         ctx = super(DummyWidget, self).get_context_data()

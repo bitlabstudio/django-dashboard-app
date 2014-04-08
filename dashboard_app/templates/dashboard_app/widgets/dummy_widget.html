@@ -1,0 +1,14 @@
+{% extends "dashboard_app/partials/widget.html" %}
+
+{% block widget_body %}
+{% if is_rendered %}
+    {% if error %}
+        <p>{{ error }}</p>
+    {% else %}
+        <p>{{ value|date:"d. M. y" }}</p>
+        <p>{{ value|date:"H:i:s" }}</p>
+    {% endif %}
+{% else %}
+    {{ block.super }}
+{% endif %}
+{% endblock %}
