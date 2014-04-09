@@ -1,8 +1,13 @@
 """Views for the dashboard_app app."""
-from django.views.generic import TemplateView, View
+from django.conf import settings
+from django.http import Http404, HttpResponse
 from django.template.defaultfilters import date
+from django.views.generic import TemplateView, View
+
+import requests
 
 from . import view_mixins
+from .dashboard_widgets import RemoteWidget
 from .widget_pool import dashboard_widget_pool
 
 
@@ -37,32 +42,38 @@ class DashboardView(view_mixins.PermissionRequiredViewMixin, TemplateView):
 
 
 class DashboardRenderWidgetView(view_mixins.PermissionRequiredViewMixin,
+                                view_mixins.RenderWidgetMixin,
                                 TemplateView):
     """AJAX view that renders any given widget by name."""
     def dispatch(self, request, *args, **kwargs):
         self.widget = dashboard_widget_pool.get_widget(
             request.GET.get('name'))
+        if isinstance(self.widget, RemoteWidget):
+            url = self.widget.url
+            payload = {
+                'token': self.widget.token,
+                'name': self.widget.remote_widget_name,
+            }
+            r = requests.get(url, params=payload)
+            return HttpResponse(r.text)
         return super(DashboardRenderWidgetView, self).dispatch(
             request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        """
-        Adds ``is_rendered`` to the context and the widget's context data.
 
-        ``is_rendered`` signals that the AJAX view has been called and that
-        we are displaying the full widget now. When ``is_rendered`` is not
-        found in the widget template it means that we are seeing the first
-        page load and all widgets still have to get their real data from
-        this AJAX view.
+class DashboardGetRemoteWidgetView(view_mixins.RenderWidgetMixin,
+                                   TemplateView):
+    """
+    Returns a widget as requested by a remote server.
 
-        """
-        ctx = super(DashboardRenderWidgetView, self).get_context_data(**kwargs)
-        ctx.update({
-            'is_rendered': True,
-            'widget': self.widget,
-        })
-        ctx.update(self.widget.get_context_data())
-        return ctx
-
-    def get_template_names(self):
-        return [self.widget.template_name, ]
+    """
+    def dispatch(self, request, *args, **kwargs):
+        self.widget_name = request.GET.get('name')
+        self.widget = dashboard_widget_pool.get_widget(self.widget_name)
+        self.token = request.GET.get('token')
+        self.access = getattr(settings, 'DASHBOARD_REMOTE_ACCESS', {})
+        if not self.widget_name in self.access:
+            raise Http404
+        if not self.token in self.access[self.widget_name]:
+            raise Http404
+        return super(DashboardGetRemoteWidgetView, self).dispatch(
+            request, *args, **kwargs)

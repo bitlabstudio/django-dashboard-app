@@ -15,4 +15,7 @@ urlpatterns = patterns(
     url(r'^widget/$',
         views.DashboardRenderWidgetView.as_view(),
         name='dashboard_app_render_widget'),
+    url(r'^api/widget/$',
+        views.DashboardGetRemoteWidgetView.as_view(),
+        name='dashboard_app_remote_widget'),
 )

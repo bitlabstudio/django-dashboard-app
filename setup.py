@@ -40,6 +40,7 @@ install_requires = [
     'django',
     'django-libs',
     'django-load',
+    'requests',
 ]
 
 

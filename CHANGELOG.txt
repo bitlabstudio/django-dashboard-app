@@ -1,5 +1,8 @@
 === (ongoing) ===
 
+- Added RemoteWidget and DashboardGetRemoteWidgetView. This allows to render
+  a widget that is hosted on another server/dashboard_app instance.
+
 === 0.1 ===
 - Initial commit
 

@@ -100,3 +100,9 @@ class DashboardRenderWidgetViewTestCase(ViewRequestFactoryTestMixin,
         resp = self.get(user=self.superuser, data=self.data)
         self.assertEqual(resp.status_code, 200, msg=(
             'User with correct permissions should be able to see the view'))
+
+
+class DashboardGetWidgetViewTestCase(ViewRequestFactoryTestMixin, TestCase):
+    """Tests for the DashboardGetWidgetView."""
+    longMessage = True
+    view_class = views.DashboardGetWidgetView
