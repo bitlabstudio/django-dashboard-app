@@ -1,5 +1,7 @@
 === (ongoing) ===
 
+=== 0.2.1 ===
+
 - Fixed bug when calling HTTPS sites
 
 === 0.2 ===
