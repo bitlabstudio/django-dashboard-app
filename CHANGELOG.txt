@@ -1,5 +1,7 @@
 === (ongoing) ===
 
+=== 0.2 ===
+
 - Added RemoteWidget and DashboardGetRemoteWidgetView. This allows to render
   a widget that is hosted on another server/dashboard_app instance.
 
