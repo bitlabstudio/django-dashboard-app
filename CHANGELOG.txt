@@ -1,5 +1,7 @@
 === (ongoing) ===
 
+- Fixed bug when calling HTTPS sites
+
 === 0.2 ===
 
 - Added RemoteWidget and DashboardGetRemoteWidgetView. This allows to render

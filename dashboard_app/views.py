@@ -54,7 +54,7 @@ class DashboardRenderWidgetView(view_mixins.PermissionRequiredViewMixin,
                 'token': self.widget.token,
                 'name': self.widget.remote_widget_name,
             }
-            r = requests.get(url, params=payload)
+            r = requests.get(url, params=payload, verify=False)
             return HttpResponse(r.text)
         return super(DashboardRenderWidgetView, self).dispatch(
             request, *args, **kwargs)
