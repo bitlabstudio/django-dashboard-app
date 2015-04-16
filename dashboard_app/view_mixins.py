@@ -1,6 +1,7 @@
 """Useful mixins for views."""
-from django import http
 import json
+
+from django import http
 from django.utils.decorators import method_decorator
 
 from .decorators import permission_required
