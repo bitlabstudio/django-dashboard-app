@@ -19,7 +19,6 @@ class DashboardWidgetLastUpdate(models.Model):
 
     last_update = models.DateTimeField(
         auto_now=True,
-        auto_now_add=True,
         verbose_name=_('Last update'),
     )
 
